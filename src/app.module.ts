@@ -1,0 +1,30 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UserController } from './user/user.controller';
+import { DatabaseModule } from './database/database.module';
+import * as Joi from '@hapi/joi';
+import { ConfigModule } from '@nestjs/config';
+import { SimModule } from './sim/sim.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.env`,
+      isGlobal: true,
+      validationSchema: Joi.object({
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_DB: Joi.string().required(),
+        PORT: Joi.number(),
+      }),
+    }),
+    DatabaseModule,
+    SimModule,
+  ],
+  controllers: [AppController, UserController],
+  providers: [AppService],
+})
+export class AppModule {}
