@@ -1,17 +1,5 @@
 version: '3'
 services:
-  db:
-    image: postgres
-    restart: always
-    env_file:
-      - .env
-    container_name: postgres-db-store-sim
-    ports:
-      - '5432:5432'
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    networks:
-      - server
   nestjs:
     image: nestjs
     build:
