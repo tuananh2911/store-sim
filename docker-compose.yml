@@ -10,8 +10,6 @@ services:
     ports:
       - '5000:5000' # expose-to-the-world : only-in-the-docker
     container_name: backend-app-store-sim
-    depends_on:
-      - db
     volumes:
       - ./store-sim:/usr/src/app/store-sim
     networks:
