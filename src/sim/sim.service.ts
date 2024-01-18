@@ -49,8 +49,9 @@ export class SimService {
     if (query.numberPhone) {
       where = { ...where, number: Like(`%${query.numberPhone}%`) };
     }
-
+    console.log('page', query.pagination);
     const { page, limit, order } = query.pagination;
+
     const skip = (page - 1) * limit;
     if (order) {
       return this.simRepository.findAndCount({
@@ -70,6 +71,7 @@ export class SimService {
 
   async getOne(id: number) {
     try {
+      console.log('id', id);
       return await this.simRepository.findOneByOrFail({ id });
     } catch (e) {
       throw new Error('Sim not found');

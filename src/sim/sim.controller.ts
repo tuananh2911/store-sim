@@ -9,17 +9,17 @@ export class SimController {
   constructor(private readonly simService: SimService) {}
 
   @Get()
-  async getAll(@Query() query: SimDto) {
+  async getAll(@Body() query: SimDto) {
     return this.simService.getAll(query);
   }
 
   @Get(':id')
-  async getOne(@Param() id: number) {
+  async getOne(@Param('id') id: number) {
     return this.simService.getOne(id);
   }
 
   @Post(':id/buy')
-  async buy(@Param() id: number, @Body() dataToBuy: BuySimDto) {
+  async buy(@Param('id') id: number, @Body() dataToBuy: BuySimDto) {
     return this.simService.buy(id, dataToBuy);
   }
 
