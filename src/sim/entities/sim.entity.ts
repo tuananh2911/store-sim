@@ -1,11 +1,11 @@
-import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('sim')
 export class SimEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @PrimaryColumn()
+  @Column({ unique: true })
   number: string;
 
   @Column()

@@ -190,7 +190,7 @@ export class SimService {
     }
   }
 
-  uploadSims(data: DataSimUploadDto) {
+  async uploadSims(data: DataSimUploadDto) {
     const { numbers, supplier, subcribsionType, price, simType } = data;
     const dataToSave = [];
     for (let i = 0; i < numbers.length; i++) {
@@ -205,7 +205,7 @@ export class SimService {
       sim.other = {};
       dataToSave.push(sim);
     }
-    return this.simRepository.save(dataToSave);
+    return await this.simRepository.save(dataToSave);
   }
   caculatePoint(number: string) {
     const digitsArray = number.split('').map(Number);
