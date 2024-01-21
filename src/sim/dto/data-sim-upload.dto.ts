@@ -10,5 +10,5 @@ export class DataSimUploadDto {
 
   price: number;
 
-  simType: string;
+  simType: any;
 }

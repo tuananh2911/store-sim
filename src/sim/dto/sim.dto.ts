@@ -18,10 +18,10 @@ export class SimDto {
 
   @IsOptional()
   @IsString()
-  supplier: string;
+  supplier: string[];
 
   @IsOptional()
-  type: string;
+  type: string[];
 
   @IsOptional()
   prefix: string;

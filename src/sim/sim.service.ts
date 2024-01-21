@@ -1,6 +1,15 @@
 import { SimDto } from './dto/sim.dto';
 import { SimEntity } from './entities/sim.entity';
-import { Between, Like, Not, Repository } from 'typeorm';
+import {
+  Any,
+  ArrayContains,
+  Between,
+  ILike,
+  In,
+  Like,
+  Not,
+  Repository,
+} from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsOrderValue } from 'typeorm/find-options/FindOptionsOrder';
 import { BuySimDto } from './dto/buy-sim.dto';
@@ -15,7 +24,7 @@ export class SimService {
     private readonly discountRepository: Repository<DiscountEntity>,
   ) {}
 
-  getAll(query: SimDto) {
+  async getAll(query: SimDto) {
     let start = 0;
     let end = 0;
     let where = {};
@@ -26,13 +35,13 @@ export class SimService {
     }
 
     if (query.supplier) {
-      where = { ...where, supplier: query.supplier };
-    }
-    if (query.type) {
-      where = { ...where, type: Like(`${query.type}%`) };
+      where = { ...where, supplier: In(query.supplier) };
     }
     if (query.prefix) {
       where = { ...where, number: Like(`${query.prefix}%`) };
+    }
+    if (query.type) {
+      where = { ...where, type: Like(`%${query.type}%`) };
     }
     if (query.avoidNumber) {
       where = { ...where, number: Not(Like(`%${query.avoidNumber}%`)) };
@@ -49,23 +58,24 @@ export class SimService {
     if (query.numberPhone) {
       where = { ...where, number: Like(`%${query.numberPhone}%`) };
     }
-    console.log('page', query.pagination);
     const { page, limit, order } = query.pagination;
 
     const skip = (page - 1) * limit;
     if (order) {
-      return this.simRepository.findAndCount({
+      const data = await this.simRepository.findAndCount({
         where,
         order: { price: order as FindOptionsOrderValue },
         skip,
         take: Number(limit),
       });
+      return { sims: data[0], total: data[1] };
     } else {
-      return this.simRepository.findAndCount({
+      const data = await this.simRepository.findAndCount({
         where,
         skip,
         take: Number(limit),
       });
+      return { sims: data[0], total: data[1] };
     }
   }
 
@@ -195,10 +205,12 @@ export class SimService {
     const dataToSave = [];
     for (let i = 0; i < numbers.length; i++) {
       const sim = new SimEntity();
+      const myArray: string[] = simType;
+      const resultString: string = myArray.join(',');
       sim.number = numbers[i];
       sim.supplier = supplier;
       sim.subcribsionType = subcribsionType;
-      sim.type = simType;
+      sim.type = resultString;
       sim.price = price;
       sim.point = this.caculatePoint(numbers[i]);
       sim.node = this.caculateNode(numbers[i]);
