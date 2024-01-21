@@ -8,7 +8,7 @@ import { DataSimUploadDto } from './dto/data-sim-upload.dto';
 export class SimController {
   constructor(private readonly simService: SimService) {}
 
-  @Get()
+  @Post()
   async getAll(@Body() query: SimDto) {
     return this.simService.getAll(query);
   }
