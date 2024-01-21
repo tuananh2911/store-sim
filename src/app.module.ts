@@ -15,7 +15,6 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({
       global: true,
       secret: 'tuananh',
-      signOptions: { expiresIn: '60s' },
     }),
     ConfigModule.forRoot({
       envFilePath: `.env`,
