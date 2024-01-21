@@ -1,8 +1,17 @@
 import { SimService } from './sim.service';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { SimDto } from './dto/sim.dto';
 import { BuySimDto } from './dto/buy-sim.dto';
 import { DataSimUploadDto } from './dto/data-sim-upload.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('sims')
 export class SimController {
@@ -23,7 +32,8 @@ export class SimController {
     return this.simService.buy(id, dataToBuy);
   }
 
-  @Post()
+  // @UseGuards(AuthGuard)
+  @Post('upload')
   async uploadSims(@Body() data: DataSimUploadDto) {
     return this.simService.uploadSims(data);
   }
