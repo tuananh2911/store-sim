@@ -176,7 +176,7 @@ export class SimService {
     });
     const mailOptions = {
       from: 'giaresimvip@gmail.com',
-      to: 'tuananhle699@gmail.com',
+      to: 'simvipgiare.com@gmail.com',
       subject: 'Purchase Confirmation',
       text: message,
     };
