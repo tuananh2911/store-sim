@@ -116,6 +116,7 @@ export class SimService {
       };
       const message = this.createMessage(data);
       await this.sendEmail(message);
+      return { status: 'success' };
     } else {
       throw new Error('Sim not found');
     }
