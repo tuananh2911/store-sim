@@ -1,21 +1,12 @@
 import { SimDto } from './dto/sim.dto';
 import { SimEntity } from './entities/sim.entity';
-import {
-  Any,
-  ArrayContains,
-  Between,
-  ILike,
-  In,
-  Like,
-  Not,
-  Repository,
-} from 'typeorm';
+import { Between, In, Like, Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsOrderValue } from 'typeorm/find-options/FindOptionsOrder';
 import { BuySimDto } from './dto/buy-sim.dto';
 import { DiscountEntity } from './entities/discount.entity';
-import { nodemailer } from 'nodemailer';
 import { DataSimUploadDto } from './dto/data-sim-upload.dto';
+import * as nodemailer from 'nodemailer';
 export class SimService {
   constructor(
     @InjectRepository(SimEntity)
@@ -179,13 +170,13 @@ export class SimService {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-email-password',
+        user: 'giaresimvip@gmail.com',
+        pass: 'tdye jrxb yjzy hqjo',
       },
     });
     const mailOptions = {
-      from: 'your-email@gmail.com',
-      to: 'recipient-email@example.com',
+      from: 'giaresimvip@gmail.com',
+      to: 'tuananhle699@gmail.com',
       subject: 'Purchase Confirmation',
       text: message,
     };
