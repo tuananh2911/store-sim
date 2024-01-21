@@ -6,9 +6,17 @@ import { DatabaseModule } from './database/database.module';
 import * as Joi from '@hapi/joi';
 import { ConfigModule } from '@nestjs/config';
 import { SimModule } from './sim/sim.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.register({
+      global: true,
+      secret: 'tuananh',
+      signOptions: { expiresIn: '60s' },
+    }),
     ConfigModule.forRoot({
       envFilePath: `.env`,
       isGlobal: true,
