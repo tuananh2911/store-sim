@@ -85,10 +85,17 @@ export class SimService {
       const require = dataToBuy.require || '';
       const methodPay = dataToBuy.methodPay;
       const typeSim = dataToBuy.typeSim;
-      const codeDiscount = dataToBuy.codeDiscount;
-      const dataDiscount = await this.discountRepository.findOneByOrFail({
+      let dataDiscount;
+      dataDiscount.percentDiscount = 0;
+      let codeDiscount = '';
+      if(dataToBuy.codeDiscount){
+        codeDiscount = dataToBuy.codeDiscount;
+        dataDiscount = await this.discountRepository.findOneByOrFail({
         code: codeDiscount,
       });
+      }
+      
+      
       const numberCustomer = dataToBuy.numberCustomer;
       const totalPrice = sim.price - dataDiscount.percentDiscount * sim.price;
       const sex = dataToBuy.sex;

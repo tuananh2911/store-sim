@@ -23,9 +23,11 @@ export class BuySimDto {
   @IsString()
   typeSim: string;
 
+  @IsOptional()
   @IsString()
   codeDiscount: string;
 
+  @IsOptional()
   @IsString()
   amountDiscount: number;
 
