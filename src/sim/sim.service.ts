@@ -70,10 +70,9 @@ export class SimService {
     }
   }
 
-  async getOne(id: number) {
+  async getOne(number: string) {
     try {
-      console.log('id', id);
-      return await this.simRepository.findOneByOrFail({ id });
+      return await this.simRepository.findOneByOrFail({ number: number });
     } catch (e) {
       throw new Error('Sim not found');
     }

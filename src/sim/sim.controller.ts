@@ -11,8 +11,7 @@ import {
 import { SimDto } from './dto/sim.dto';
 import { BuySimDto } from './dto/buy-sim.dto';
 import { DataSimUploadDto } from './dto/data-sim-upload.dto';
-import {AuthGuard} from "../auth/auth.guard";
-
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('sims')
 export class SimController {
@@ -23,9 +22,9 @@ export class SimController {
     return this.simService.getAll(query);
   }
 
-  @Get(':id')
-  async getOne(@Param('id') id: number) {
-    return this.simService.getOne(id);
+  @Get(':number')
+  async getOne(@Param('number') number: string) {
+    return this.simService.getOne(number);
   }
 
   @Post(':id/buy')
