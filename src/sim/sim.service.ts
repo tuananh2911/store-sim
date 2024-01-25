@@ -16,13 +16,12 @@ export class SimService {
   ) {}
 
   async getAll(query: SimDto) {
-    let start = 0;
-    let end = 0;
+    let start;
+    let end;
     let where = {};
     if (query.priceRange?.length > 0) {
-      start = query.priceRange[0];
-      end = query.priceRange[1];
-      where = { ...where, price: Between(start, end) };
+      [start, end] = query.priceRange[0].split(',');
+      where = { ...where, price: Between(parseInt(start), parseInt(end))};
     }
 
     if (query.supplier) {
@@ -52,6 +51,7 @@ export class SimService {
     const { page, limit, order } = query.pagination;
 
     const skip = (page - 1) * limit;
+    console.log(where);
     if (order) {
       const data = await this.simRepository.findAndCount({
         where,
@@ -88,14 +88,13 @@ export class SimService {
       let dataDiscount;
       dataDiscount.percentDiscount = 0;
       let codeDiscount = '';
-      if(dataToBuy.codeDiscount){
+      if (dataToBuy.codeDiscount) {
         codeDiscount = dataToBuy.codeDiscount;
         dataDiscount = await this.discountRepository.findOneByOrFail({
-        code: codeDiscount,
-      });
+          code: codeDiscount,
+        });
       }
-      
-      
+
       const numberCustomer = dataToBuy.numberCustomer;
       const totalPrice = sim.price - dataDiscount.percentDiscount * sim.price;
       const sex = dataToBuy.sex;

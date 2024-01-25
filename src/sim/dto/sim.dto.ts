@@ -14,7 +14,7 @@ class PaginationDto {
 export class SimDto {
   @IsOptional()
   @IsArray()
-  priceRange: number[];
+  priceRange: string[];
 
   @IsOptional()
   @IsString()
