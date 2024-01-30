@@ -214,10 +214,13 @@ export class SimService {
       sim.other = {};
       dataToSave.push(sim);
     }
+    console.log(dataToSave);
     return await this.simRepository.save(dataToSave);
   }
   caculatePoint(number: string) {
-    const digitsArray = number.split('').map(Number);
+    const numberDot = number.replace(/\./g, '');
+    console.log(numberDot);
+    const digitsArray = numberDot.split('').map(Number);
     const sum = digitsArray.reduce((acc, digit) => acc + digit, 0);
     return sum;
   }
