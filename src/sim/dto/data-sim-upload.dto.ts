@@ -11,4 +11,6 @@ export class DataSimUploadDto {
   price: number;
 
   simType: any;
+
+  commitment: string;
 }

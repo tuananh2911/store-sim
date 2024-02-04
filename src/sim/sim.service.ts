@@ -211,7 +211,7 @@ export class SimService {
       sim.price = price;
       sim.point = this.caculatePoint(numbers[i]);
       sim.node = this.caculateNode(numbers[i]);
-      sim.other = {};
+      sim.other = { commitment: data?.commitment || '' };
       dataToSave.push(sim);
     }
     console.log(dataToSave);
