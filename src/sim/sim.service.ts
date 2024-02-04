@@ -21,7 +21,7 @@ export class SimService {
     let where = {};
     if (query.priceRange?.length > 0) {
       [start, end] = query.priceRange[0].split(',');
-      where = { ...where, price: Between(parseInt(start), parseInt(end))};
+      where = { ...where, price: Between(parseInt(start), parseInt(end)) };
     }
 
     if (query.supplier) {
@@ -85,10 +85,10 @@ export class SimService {
       const require = dataToBuy.require || '';
       const methodPay = dataToBuy.methodPay;
       const typeSim = dataToBuy.typeSim;
-      let dataDiscount;
+      let dataDiscount: any = {};
       dataDiscount.percentDiscount = 0;
       let codeDiscount = '';
-      if (dataToBuy.codeDiscount) {
+      if (dataToBuy.codeDiscount != '') {
         codeDiscount = dataToBuy.codeDiscount;
         dataDiscount = await this.discountRepository.findOneByOrFail({
           code: codeDiscount,
