@@ -88,7 +88,7 @@ export class SimService {
       let dataDiscount: any = {};
       dataDiscount.percentDiscount = 0;
       let codeDiscount = '';
-      if (dataToBuy.codeDiscount != '') {
+      if (dataToBuy.codeDiscount) {
         codeDiscount = dataToBuy.codeDiscount;
         dataDiscount = await this.discountRepository.findOneByOrFail({
           code: codeDiscount,
